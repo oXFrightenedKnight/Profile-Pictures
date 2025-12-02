@@ -29,5 +29,9 @@ export async function startCheckoutSession(productId: string) {
     mode: "payment",
   })
 
+  if (!session.client_secret) {
+    throw new Error("Stripe session created without client secret")
+  }
+
   return session.client_secret
 }

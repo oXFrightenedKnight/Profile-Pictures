@@ -24,7 +24,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "my cr deck",
-    name: "i mean miner is op",
+    name: "my-cr-deck",
     description: "Description",
     priceInCents: 2499, // $24.99
     images: ["/my-cr-deck.jpg"],
