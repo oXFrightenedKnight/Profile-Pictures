@@ -1,14 +1,16 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Geist } from "next/font/google"
-import { Analytics } from "@vercel/analytics/next"
-import "./globals.css"
+import type React from "react";
+import type { Metadata } from "next";
+import { Geist } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import "./globals.css";
+import { Navbar } from "@/components/Navbar";
 
-const geist = Geist({ subsets: ["latin"] })
+const geist = Geist({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "PFP Store - Premium Profile Pictures",
-  description: "Stand out online with unique, high-quality profile pictures. Instant download after purchase.",
+  description:
+    "Stand out online with unique, high-quality profile pictures. Instant download after purchase.",
   generator: "v0.app",
   icons: {
     icon: [
@@ -27,19 +29,26 @@ export const metadata: Metadata = {
     ],
     apple: "/apple-icon.png",
   },
-}
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
       <body className={`${geist.className} font-sans antialiased`}>
+        <Navbar></Navbar>
         {children}
         <Analytics />
+        {/* Footer */}
+        <footer className="border-t mt-16">
+          <div className="container mx-auto px-4 py-8 text-center text-muted-foreground">
+            <p>© 2025 PFP Store. All rights reserved.</p>
+          </div>
+        </footer>
       </body>
     </html>
-  )
+  );
 }
