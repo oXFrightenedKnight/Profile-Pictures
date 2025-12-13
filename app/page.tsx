@@ -2,14 +2,16 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { trpc } from "./_trpc/client";
 
 export default function HomePage() {
+  const message = trpc.testedMessage.useQuery();
   return (
     <main className="min-h-screen bg-gradient-to-b from-white to-neutral-100 text-black">
       {/* HERO */}
       <section className="px-6 lg:px-12 py-24 flex flex-col items-center text-center gap-6">
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight max-w-3xl">
-          Premium jerk profile pics for the boyyyys.
+          Premium jerk profile pics for the boyyyys. {message.data?.message}
         </h1>
 
         <p className="text-lg md:text-xl text-neutral-300 max-w-xl">
