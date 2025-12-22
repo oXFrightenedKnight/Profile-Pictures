@@ -1,12 +1,12 @@
-"use server"
+"use server";
 
-import { stripe } from "@/lib/stripe"
-import { PRODUCTS } from "@/lib/products"
+import { stripe } from "@/lib/stripe";
+import { PRODUCTS } from "@/lib/products";
 
 export async function startCheckoutSession(productId: string) {
-  const product = PRODUCTS.find((p) => p.id === productId)
+  const product = PRODUCTS.find((p) => p.id === productId);
   if (!product) {
-    throw new Error(`Product with id "${productId}" not found`)
+    throw new Error(`Product with id "${productId}" not found`);
   }
 
   // Create Checkout Sessions from body params
@@ -27,11 +27,11 @@ export async function startCheckoutSession(productId: string) {
       },
     ],
     mode: "payment",
-  })
+  });
 
   if (!session.client_secret) {
-    throw new Error("Stripe session created without client secret")
+    throw new Error("Stripe session created without client secret");
   }
 
-  return session.client_secret
+  return session.client_secret;
 }

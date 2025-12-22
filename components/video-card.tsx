@@ -58,7 +58,7 @@ export function ProductCardVideo({ product }: ProductCardProps) {
         {/* TEXT CONTENT */}
         <CardHeader>
           <CardTitle className="text-xl">{product.name}</CardTitle>
-          <CardDescription className="line-clamp-2 h-12">{product.description}</CardDescription>
+          <CardDescription className="line-clamp-2 h-11">{product.description}</CardDescription>
         </CardHeader>
 
         {/* PRICE */}

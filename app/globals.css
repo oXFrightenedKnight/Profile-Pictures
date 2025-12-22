@@ -120,3 +120,48 @@
     @apply bg-background text-foreground;
   }
 }
+
+.marquee-container {
+  width: 100%;
+  height: 2rem;
+  background-color: #ef4444;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.marquee-track {
+  display: flex;
+  width: 200%; /* КРИТИЧНО */
+}
+
+.marquee-content {
+  width: 50%; /* КРИТИЧНО */
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-right: 1rem;
+  font-weight: 700;
+  color: white;
+}
+
+/* АНИМАЦИЯ */
+@keyframes scroll-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll-left {
+  animation: scroll-left 25s linear infinite;
+  will-change: transform;
+}
+
+/* hover pause */
+.group:hover .animate-scroll-left {
+  animation-play-state: paused;
+}

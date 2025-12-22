@@ -54,7 +54,7 @@ export function ProductCard({ product }: ProductCardProps) {
         </div>
         <CardHeader>
           <CardTitle className="text-xl">{product.name}</CardTitle>
-          <CardDescription className="line-clamp-2 h-12">{product.description}</CardDescription>
+          <CardDescription className="line-clamp-2 h-11">{product.description}</CardDescription>
         </CardHeader>
         <CardContent className="flex-1">
           <div className="h-20 flex flex-col justify-end">

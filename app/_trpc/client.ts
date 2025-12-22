@@ -1,5 +1,9 @@
 import type { AppRouter } from "../../../packages/trpc-shared/index";
+import { inferRouterOutputs } from "@trpc/server";
 
 import { createTRPCReact } from "@trpc/react-query";
+type RouterOutputs = inferRouterOutputs<AppRouter>;
 
 export const trpc = createTRPCReact<AppRouter>({});
+export type Product = RouterOutputs["readProducts"]["products"][number];
+export type Collection = RouterOutputs["getCollections"][number];
