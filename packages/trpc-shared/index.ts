@@ -1,4 +1,4 @@
 // trpc-shared/index.d.ts
-import type { AnyRouter } from "@trpc/server";
+//import type { AnyRouter } from "@trpc/server";
 
-export type AppRouter = AnyRouter;
+//export type AppRouter = AnyRouter;

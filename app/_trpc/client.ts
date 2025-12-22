@@ -1,4 +1,4 @@
-import type { AppRouter } from "@/packages/trpc-shared";
+import type { AppRouter } from "@/packages/trpc-shared/index.d";
 import { inferRouterOutputs } from "@trpc/server";
 
 import { createTRPCReact } from "@trpc/react-query";
