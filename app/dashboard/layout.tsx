@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 export default function CollectionLayout({ children }: { children: ReactNode }) {
   return (
     <>
-      <AuthGuard>{children}</AuthGuard>
+      <AuthGuard origin="dashboard">{children}</AuthGuard>
     </>
   );
 }
