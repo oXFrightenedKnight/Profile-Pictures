@@ -5,19 +5,15 @@ import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export default function AuthGuard({
-  children,
-  origin,
-}: {
-  children: React.ReactNode;
-  origin: string;
-}) {
+export default function AuthGuard({ children }: { children: React.ReactNode }) {
   const { user, isSignedIn, isLoaded } = useUser();
   const router = useRouter();
 
   useEffect(() => {
-    router.push(`/auth-callback?origin=${origin}`);
-  }, []);
+    if (isLoaded && !isSignedIn && !user) {
+      router.push("/auth-callback");
+    }
+  }, [isLoaded, isSignedIn, router]);
 
   if (!isLoaded || !isSignedIn) {
     return (

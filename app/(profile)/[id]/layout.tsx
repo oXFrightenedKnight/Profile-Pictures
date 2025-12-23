@@ -9,7 +9,7 @@ export default function CollectionLayout({ children }: { children: ReactNode }) 
   const id = params.id as string;
   return (
     <>
-      <AuthGuard origin={id}>{children}</AuthGuard>
+      <AuthGuard>{children}</AuthGuard>
     </>
   );
 }
