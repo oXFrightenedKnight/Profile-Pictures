@@ -45,7 +45,7 @@ export declare const appRouter: import("@trpc/server").TRPCBuiltRouter<
       input: {
         collectionId: string;
         limit?: number | null | undefined;
-        cursor?: string | null | undefined;
+        cursor?: unknown;
       };
       output: {
         products: {
@@ -61,7 +61,7 @@ export declare const appRouter: import("@trpc/server").TRPCBuiltRouter<
           imageId: string;
           createdAt: Date;
         }[];
-        nextCursor: string | undefined;
+        nextCursor: Date | undefined;
       };
       meta: object;
     }>;
@@ -87,7 +87,7 @@ export declare const appRouter: import("@trpc/server").TRPCBuiltRouter<
       input: {
         userId: string;
         limit?: number | null | undefined;
-        cursor?: string | null | undefined;
+        cursor?: unknown;
       };
       output: {
         products: {
@@ -103,7 +103,7 @@ export declare const appRouter: import("@trpc/server").TRPCBuiltRouter<
           imageId: string;
           createdAt: Date;
         }[];
-        nextCursor: string | undefined;
+        nextCursor: Date | undefined;
       };
       meta: object;
     }>;

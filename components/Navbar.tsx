@@ -10,7 +10,7 @@ import { useState } from "react";
 export function Navbar() {
   const [open, setOpen] = useState<boolean>(false);
   return (
-    <nav className="w-full border-b border-neutral-800 bg-black/60 backdrop-blur-xl fixed top-0 z-50">
+    <nav className="w-full h-[66px] border-b border-neutral-800 bg-black/60 backdrop-blur-xl fixed top-0 z-50">
       <div className="max-w-6xl mx-auto flex relative items-center justify-between py-4 px-6 border-b border-zinc-200">
         {/* Logo */}
         <Link href="/" className="text-2xl font-bold text-white hover:text-purple-400 transition">

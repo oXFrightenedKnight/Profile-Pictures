@@ -9,36 +9,27 @@ import { Loader2 } from "lucide-react";
 
 const communityProducts = () => {
   const params = useParams();
-  const id = params.id;
+  const id = params.id as string | undefined;
 
   const { data, hasNextPage, fetchNextPage } = trpc.readProducts.useInfiniteQuery(
-    { limit: 10, collectionId: id as string },
-    { getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined }
+    { limit: 10, collectionId: id! },
+    { getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined, enabled: !!id }
   );
   const products = data?.pages.flatMap((p) => p.products) ?? [];
 
-  console.log(products);
-
-  const [root, setRoot] = useState<HTMLElement | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
   const { ref, entry } = useIntersection({
-    root,
-    threshold: 1,
-    rootMargin: "0px",
+    rootMargin: "200px",
   });
-  useEffect(() => {
-    setRoot(containerRef.current);
-  }, []);
 
   useEffect(() => {
     if (!entry?.isIntersecting) return;
     if (!hasNextPage) return;
 
     fetchNextPage();
-  }, [entry]);
+  }, [entry, hasNextPage, fetchNextPage]);
   return (
     <>
-      <main ref={containerRef} className="container mx-auto px-4 py-12 mt-[9vh]">
+      <main className="container mx-auto px-4 py-12 mt-[9vh]">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.length !== 0
             ? products.map((product) => <ProductCardNew key={product.id} product={product} />)
