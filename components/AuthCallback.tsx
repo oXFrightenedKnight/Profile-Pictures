@@ -26,7 +26,7 @@ const AuthCallback = () => {
 
     const code = (error as any)?.data?.code;
     if (code === "UNAUTHORIZED") {
-      router.push("/https://helping-python-92.accounts.dev/sign-up");
+      router.push("https://helping-python-92.accounts.dev/sign-up");
     }
   }, [isError, error, router]);
 

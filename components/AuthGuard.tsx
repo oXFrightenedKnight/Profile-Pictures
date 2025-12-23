@@ -11,7 +11,7 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (isLoaded && !isSignedIn && !user) {
-      router.push("https://helping-python-92.accounts.dev/sign-up");
+      router.push("/auth-callback");
     }
   }, [isLoaded, isSignedIn, router]);
 
