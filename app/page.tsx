@@ -3,10 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { trpc } from "./_trpc/client";
+import Marquee from "@/components/christmas-marquee";
 
 export default function HomePage() {
   return (
     <>
+      <Marquee></Marquee>
       <main className="min-h-screen bg-gradient-to-b from-white to-neutral-100 text-black mt-[9vh]">
         {/* HERO */}
         <section className="px-6 lg:px-12 py-24 flex flex-col items-center text-center gap-6">

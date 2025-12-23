@@ -17,16 +17,7 @@ import { Label } from "@/components/ui/label";
 import ProductCardNew from "@/components/UpgProductCard";
 import { useUser } from "@clerk/clerk-react";
 import { useIntersection } from "@mantine/hooks";
-import {
-  CirclePlus,
-  DiamondPlus,
-  DoorOpen,
-  Loader2,
-  Menu,
-  Pencil,
-  Sandwich,
-  Store,
-} from "lucide-react";
+import { CirclePlus, DiamondPlus, DoorOpen, Loader2, Store } from "lucide-react";
 import Image from "next/image";
 import { redirect, useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -302,7 +293,7 @@ const Page = () => {
       </div>
       <div>
         <Button
-          className="fixed mt-[14vh] size-12 top-3 left-3 z-2 md:hidden bg-black text-white rounded-full"
+          className="fixed mt-[10vh] size-12 top-3 left-3 z-2 md:hidden bg-black text-white rounded-full"
           onClick={() => setOpen(true)}
         >
           <DiamondPlus className="w-12 h-12 shrink-0"></DiamondPlus>

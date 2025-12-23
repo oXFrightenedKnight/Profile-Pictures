@@ -6,11 +6,12 @@ import "./globals.css";
 import Providers from "@/components/Providers";
 import ClerkClientProvider from "@/components/ClerkClientProvider";
 import { Navbar } from "@/components/Navbar";
+import Marquee from "@/components/christmas-marquee";
 
 const geist = Geist({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "PFP Store - Premium Profile Pictures",
+  title: "PFPVerse - Your best PFP service",
   description:
     "Stand out online with unique, high-quality profile pictures. Instant download after purchase.",
   generator: "v0.app",
