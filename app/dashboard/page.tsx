@@ -144,6 +144,7 @@ const Page = () => {
                 onClick={() => {
                   setDialogOpen(true);
                   setIsVideo(false);
+                  setOpen(false);
                 }}
               >
                 <ImagePlus className="w-8 h-8 text-white"></ImagePlus>New Image Product
@@ -153,6 +154,7 @@ const Page = () => {
                 onClick={() => {
                   setDialogOpen(true);
                   setIsVideo(true);
+                  setOpen(false);
                   console.log("isVideo", isVideo);
                 }}
               >
