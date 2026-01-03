@@ -111,7 +111,7 @@ export default function HomePage() {
       </main>
       <footer className="border-t mt-16">
         <div className="container mx-auto px-4 py-8 text-center text-muted-foreground">
-          <p>© 2025 PFP Store. All rights reserved.</p>
+          <p>© 2026 PFP Store. All rights reserved.</p>
         </div>
       </footer>
     </>

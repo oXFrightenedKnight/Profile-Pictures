@@ -123,21 +123,42 @@ const Page = () => {
             open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
           }`}
         />
-        <div
-          className={`fixed inset-y-0 left-0 z-2 pt-[10vh] w-[60vw] bg-neutral-400 rounded-t-2xl transform transition-transform duration-300 ease-out  ${
-            open ? "translate-x-0" : "-translate-x-full"
-          }`}
-        >
-          <div className="w-full h-full pl-4 pr-4 pt-2 border border-red-500">
-            <Button
-              className="cursor-pointer font-semibold text-3xs w-full p-4"
-              onClick={() => {
-                setDialogOpen(true);
-                setOpen(false);
-              }}
-            >
-              <CirclePlus className="w-8 h-8 text-white"></CirclePlus>Create New
-            </Button>
+        <div className="absolute top-20 left-0 w-full px-4 flex flex-col items-start gap-3">
+          <div
+            className={`fixed inset-y-0 left-0 z-101 w-[60vw] bg-neutral-400 rounded-t-2xl transform transition-transform duration-300 ease-out ${
+              open ? "translate-x-0" : "-translate-x-full"
+            }`}
+          >
+            <div className="w-full px-4 pt-[88px] flex flex-col items-start gap-3">
+              <div className="w-24 h-9 bg-white border border-neutral-800 rounded-[10px] flex justify-center items-center">
+                <span className="font-semibold">
+                  {Math.round((256_000_000 - storageTaken) / 1_000_000)}
+                </span>
+                <span className="font-bold pr-1">MB</span>
+                <div className="h-full w-[30%] flex justify-center items-center p-1 border-l border-neutral-800">
+                  <DatabaseZap className="w-4 h-4"></DatabaseZap>
+                </div>
+              </div>
+              <Button
+                className="cursor-pointer font-semibold text-3xs w-full p-4"
+                onClick={() => {
+                  setDialogOpen(true);
+                  setIsVideo(false);
+                }}
+              >
+                <ImagePlus className="w-8 h-8 text-white"></ImagePlus>New Image Product
+              </Button>
+              <Button
+                className="cursor-pointer font-semibold text-3xs w-full p-4"
+                onClick={() => {
+                  setDialogOpen(true);
+                  setIsVideo(true);
+                  console.log("isVideo", isVideo);
+                }}
+              >
+                <FilePlay className="w-8 h-8 text-white"></FilePlay>New Video Product
+              </Button>
+            </div>
           </div>
         </div>
       </div>
