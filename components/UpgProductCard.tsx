@@ -148,7 +148,7 @@ const ProductCardNew = ({ product, onDashboard }: { product: Product; onDashboar
       </Dialog>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="w-[90vw] h-[min(90vh,768px)] max-w-[90vw] max-h-[75vh] overflow-hidden flex flex-col">
+        <DialogContent className="w-[90vw] h-[90vh] max-h-[768px] max-w-[90vw] overflow-hidden flex flex-col z-300">
           <DialogHeader>
             <DialogTitle>Video Preview</DialogTitle>
           </DialogHeader>

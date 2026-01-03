@@ -110,7 +110,7 @@ const Page = () => {
       </div>
       <div>
         <Button
-          className="fixed mt-[72px] size-12 top-3 left-3 z-2 md:hidden bg-black text-white rounded-full"
+          className="fixed mt-[72px] size-12 top-3 left-3 z-100 md:hidden bg-black text-white rounded-full"
           onClick={() => setOpen(true)}
         >
           <DiamondPlus className="w-12 h-12 shrink-0"></DiamondPlus>

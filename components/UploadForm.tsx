@@ -20,6 +20,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { trpc, Product } from "@/app/_trpc/client";
 import Image from "next/image";
+import { Timer, TriangleAlert } from "lucide-react";
 
 const formSchema = z.object({
   name: z
@@ -170,7 +171,7 @@ const UploadForm = ({
                   ) : media && isVideo ? (
                     <div>
                       <video
-                        className="w-[72px] h-[72px]"
+                        className="w-[72px] h-[72px] bg-black"
                         width={72}
                         height={72}
                         src={media.url}
@@ -182,6 +183,22 @@ const UploadForm = ({
                     </div>
                   ) : (
                     <UploadButton onUploaded={setMedia} isVideo={isVideo}></UploadButton>
+                  )}
+                  {isVideo && !media && (
+                    <>
+                      <div className="grid gap-3 bg-amber-700 rounded-2xl border-2 border-amber-300">
+                        <div className="flex p-2 items-center justify-start text-amber-300">
+                          <TriangleAlert className="w-8 h-8 text-amber-300 shrink-0 mr-2"></TriangleAlert>
+                          After submitting, the video may take up to 10-15 minutes to process.
+                        </div>
+                      </div>
+                      <div className="grid gap-3 bg-cyan-600 rounded-2xl border-2 border-cyan-300">
+                        <div className="flex p-2 items-center justify-start text-cyan-300">
+                          <Timer className="w-8 h-8 text-cyan-300 shrink-0 mr-2"></Timer>
+                          All video products are automatically deleted after 7 days
+                        </div>
+                      </div>
+                    </>
                   )}
                   {submittedAndNoImg && !media ? (
                     <div className="text-xs text-red-500">

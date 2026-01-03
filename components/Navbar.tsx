@@ -64,7 +64,7 @@ export function Navbar() {
               </Button>
             </SheetTrigger>
 
-            <SheetContent side="left" className="bg-black text-white flex">
+            <SheetContent side="left" className="bg-black text-white flex z-201">
               <div className="p-2">
                 <div className="flex flex-col gap-6 mt-10">
                   <Link

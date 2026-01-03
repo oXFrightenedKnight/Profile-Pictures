@@ -89,7 +89,7 @@ const EditDialog = ({ name, description }: { name: string; description: string }
                 <DialogDescription>At least be cool here</DialogDescription>
               </DialogHeader>
               <div className="grid gap-4">
-                <div className="grid gap-3 min-h-[15vh] bg-amber-700 rounded-2xl border-2 border-amber-300">
+                <div className="grid gap-3 bg-amber-700 rounded-2xl border-2 border-amber-300">
                   <div className="flex p-2 items-center justify-start text-amber-300">
                     <TriangleAlert className="w-8 h-8 text-amber-300 shrink-0 mr-2"></TriangleAlert>
                     To change your profile picture, tap on your profile picture in the top right
