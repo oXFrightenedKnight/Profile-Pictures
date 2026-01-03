@@ -147,129 +147,135 @@ const UploadForm = ({
           setDialogOpen(isOpen);
         }}
       >
-        <DialogContent className="sm:max-w-[425px] z-250">
+        <DialogContent className="sm:max-w-[425px] max-h-[90vh] overflow-y-auto z-250">
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
-              <DialogHeader className="mb-4">
-                <DialogTitle>Create Product</DialogTitle>
-                <DialogDescription>Make sure its sigma.</DialogDescription>
-              </DialogHeader>
-              <div className="grid gap-4">
-                <div className="grid gap-3">
-                  {media && !isVideo ? (
-                    <div>
-                      <Image
-                        src={media.url}
-                        alt="uploaded image"
-                        className="w-[72px] h-[72px]"
-                        width={72}
-                        height={72}
-                      ></Image>
-                      <div className="text-xs font-semibold pt-2">
-                        {(media.size / 1_000_000).toFixed(2)}MB will be deducted from your storage
-                      </div>
-                    </div>
-                  ) : media && isVideo ? (
-                    <div>
-                      <video
-                        className="w-[72px] h-[72px] bg-black"
-                        width={72}
-                        height={72}
-                        src={media.url}
-                        preload="metadata"
-                      ></video>
-                      <div className="text-xs font-semibold pt-2">
-                        {(media.size / 1_000_000).toFixed(2)}MB will be deducted from your storage
-                      </div>
-                    </div>
-                  ) : (
-                    <UploadButton onUploaded={setMedia} isVideo={isVideo}></UploadButton>
-                  )}
-                  {isVideo && !media && (
-                    <>
-                      <div className="grid gap-3 bg-amber-700 rounded-2xl border-2 border-amber-300">
-                        <div className="flex p-2 items-center justify-start text-amber-300">
-                          <TriangleAlert className="w-8 h-8 text-amber-300 shrink-0 mr-2"></TriangleAlert>
-                          After submitting, the video may take up to 10-15 minutes to process.
+            <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col">
+              <div className="flex-1 overflow-y-auto">
+                <DialogHeader className="mb-4">
+                  <DialogTitle>Create Product</DialogTitle>
+                  <DialogDescription>Make sure its sigma.</DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-4">
+                  <div className="grid gap-3">
+                    {media && !isVideo ? (
+                      <div>
+                        <Image
+                          src={media.url}
+                          alt="uploaded image"
+                          className="w-[72px] h-[72px]"
+                          width={72}
+                          height={72}
+                        ></Image>
+                        <div className="text-xs font-semibold pt-2">
+                          {(media.size / 1_000_000).toFixed(2)}MB will be deducted from your storage
                         </div>
                       </div>
-                      <div className="grid gap-3 bg-cyan-600 rounded-2xl border-2 border-cyan-300">
-                        <div className="flex p-2 items-center justify-start text-cyan-300">
-                          <Timer className="w-8 h-8 text-cyan-300 shrink-0 mr-2"></Timer>
-                          All video products are automatically deleted after 7 days
+                    ) : media && isVideo ? (
+                      <div>
+                        <video
+                          className="w-[72px] h-[72px] bg-black"
+                          width={72}
+                          height={72}
+                          src={media.url}
+                          preload="metadata"
+                        ></video>
+                        <div className="text-xs font-semibold pt-2">
+                          {(media.size / 1_000_000).toFixed(2)}MB will be deducted from your storage
                         </div>
                       </div>
-                    </>
-                  )}
-                  {submittedAndNoImg && !media ? (
-                    <div className="text-xs text-red-500">
-                      {isVideo ? (
-                        <div>Please upload a video</div>
-                      ) : (
-                        <div>Please upload an image</div>
-                      )}
-                    </div>
-                  ) : null}
+                    ) : (
+                      <UploadButton onUploaded={setMedia} isVideo={isVideo}></UploadButton>
+                    )}
+                    {isVideo && !media && (
+                      <>
+                        <div className="grid gap-3 bg-amber-700 rounded-2xl border-2 border-amber-300">
+                          <div className="flex p-2 items-center justify-start text-amber-300">
+                            <TriangleAlert className="w-8 h-8 text-amber-300 shrink-0 mr-2"></TriangleAlert>
+                            After submitting, the video may take up to 10-15 minutes to process.
+                          </div>
+                        </div>
+                        <div className="grid gap-3 bg-cyan-600 rounded-2xl border-2 border-cyan-300">
+                          <div className="flex p-2 items-center justify-start text-cyan-300">
+                            <Timer className="w-8 h-8 text-cyan-300 shrink-0 mr-2"></Timer>
+                            All video products are automatically deleted after 7 days
+                          </div>
+                        </div>
+                      </>
+                    )}
+                    {submittedAndNoImg && !media ? (
+                      <div className="text-xs text-red-500">
+                        {isVideo ? (
+                          <div>Please upload a video</div>
+                        ) : (
+                          <div>Please upload an image</div>
+                        )}
+                      </div>
+                    ) : null}
+                  </div>
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <div className="grid gap-2">
+                        <Label htmlFor="product-name">Name</Label>
+                        <Input id="product-name" placeholder="67 Kid" {...field}></Input>
+                      </div>
+                    )}
+                  ></FormField>
+                  <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                      <div className="grid gap-2">
+                        <Label htmlFor="description">Description</Label>
+                        <Input
+                          id="description"
+                          {...field}
+                          placeholder="My worst product yet"
+                        ></Input>
+                      </div>
+                    )}
+                  ></FormField>
+                  <FormField
+                    control={form.control}
+                    name="price"
+                    render={({ field }) => (
+                      <div className="grid gap-2">
+                        <Label htmlFor="price">Price ($)</Label>
+                        <Input id="price" type="number" {...field} placeholder="67.67"></Input>
+                      </div>
+                    )}
+                  ></FormField>
+                  <FormField
+                    control={form.control}
+                    name="discount"
+                    render={({ field }) => (
+                      <div className="grid gap-2">
+                        <Label htmlFor="discount">Discount (%)</Label>
+                        <Input id="discount" type="number" {...field}></Input>
+                      </div>
+                    )}
+                  ></FormField>
+                  <FormField
+                    control={form.control}
+                    name="copies"
+                    render={({ field }) => (
+                      <div className="grid gap-2">
+                        <Label htmlFor="copies">Copies</Label>
+                        <Input id="copies" type="number" {...field}></Input>
+                      </div>
+                    )}
+                  ></FormField>
                 </div>
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <div className="grid gap-2">
-                      <Label htmlFor="product-name">Name</Label>
-                      <Input id="product-name" placeholder="67 Kid" {...field}></Input>
-                    </div>
-                  )}
-                ></FormField>
-                <FormField
-                  control={form.control}
-                  name="description"
-                  render={({ field }) => (
-                    <div className="grid gap-2">
-                      <Label htmlFor="description">Description</Label>
-                      <Input id="description" {...field} placeholder="My worst product yet"></Input>
-                    </div>
-                  )}
-                ></FormField>
-                <FormField
-                  control={form.control}
-                  name="price"
-                  render={({ field }) => (
-                    <div className="grid gap-2">
-                      <Label htmlFor="price">Price ($)</Label>
-                      <Input id="price" type="number" {...field} placeholder="67.67"></Input>
-                    </div>
-                  )}
-                ></FormField>
-                <FormField
-                  control={form.control}
-                  name="discount"
-                  render={({ field }) => (
-                    <div className="grid gap-2">
-                      <Label htmlFor="discount">Discount (%)</Label>
-                      <Input id="discount" type="number" {...field}></Input>
-                    </div>
-                  )}
-                ></FormField>
-                <FormField
-                  control={form.control}
-                  name="copies"
-                  render={({ field }) => (
-                    <div className="grid gap-2">
-                      <Label htmlFor="copies">Copies</Label>
-                      <Input id="copies" type="number" {...field}></Input>
-                    </div>
-                  )}
-                ></FormField>
+                <DialogFooter className="mt-4">
+                  <DialogClose asChild>
+                    <Button variant={"outline"}>Cancel</Button>
+                  </DialogClose>
+                  <Button type="submit" onClick={() => setSubmittedAndNoImg(true)}>
+                    Save changes
+                  </Button>
+                </DialogFooter>
               </div>
-              <DialogFooter className="mt-4">
-                <DialogClose asChild>
-                  <Button variant={"outline"}>Cancel</Button>
-                </DialogClose>
-                <Button type="submit" onClick={() => setSubmittedAndNoImg(true)}>
-                  Save changes
-                </Button>
-              </DialogFooter>
             </form>
           </Form>
         </DialogContent>
