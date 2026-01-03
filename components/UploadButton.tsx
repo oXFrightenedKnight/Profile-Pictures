@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "./ui/button";
-import { DialogContent, Dialog, DialogTrigger, DialogTitle } from "./ui/dialog";
+import { DialogContent, Dialog, DialogTrigger, DialogTitle, DialogOverlay } from "./ui/dialog";
 
 import Dropzone from "react-dropzone";
 import { Import, File, FileX, Loader2 } from "lucide-react";
@@ -108,10 +108,7 @@ const UploadDropzone = ({
           className="border h-64 m-4 border-dashed border-gray-300 rounded-lg"
         >
           <div className="flex items-center justify-center h-full w-full">
-            <div
-              // FIX DOUBLE FILE OPENING
-              className="flex flex-col items-center justify-center w-full h-full rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100"
-            >
+            <div className="flex flex-col items-center justify-center w-full h-full rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
               <div className="flex flex-col items-center justify-center pt-5 pb-6">
                 <Import className="h-8 w-8 text-zinc-500 mb-2"></Import>
                 <p className="mb-2 text-sm text-zinc-700">
@@ -180,7 +177,9 @@ const UploadButton = ({
         <Button>{isVideo ? <span>Upload Video</span> : <span>Upload Image</span>}</Button>
       </DialogTrigger>
 
-      <DialogContent>
+      <DialogOverlay className="z-900" />
+
+      <DialogContent className="z-1000">
         <DialogTitle>
           <UploadDropzone
             onUploaded={(img) => {

@@ -143,6 +143,7 @@ const UploadForm = ({
             setMedia(null);
           }
           form.reset();
+          setSubmittedAndNoImg(false);
           setDialogOpen(isOpen);
         }}
       >
@@ -202,7 +203,11 @@ const UploadForm = ({
                   )}
                   {submittedAndNoImg && !media ? (
                     <div className="text-xs text-red-500">
-                      Please upload {isVideo ? <div>a video</div> : <div>an image</div>}
+                      {isVideo ? (
+                        <div>Please upload a video</div>
+                      ) : (
+                        <div>Please upload an image</div>
+                      )}
                     </div>
                   ) : null}
                 </div>
@@ -213,7 +218,6 @@ const UploadForm = ({
                     <div className="grid gap-2">
                       <Label htmlFor="product-name">Name</Label>
                       <Input id="product-name" placeholder="67 Kid" {...field}></Input>
-                      <FormMessage className="text-xs"></FormMessage>
                     </div>
                   )}
                 ></FormField>
@@ -224,7 +228,6 @@ const UploadForm = ({
                     <div className="grid gap-2">
                       <Label htmlFor="description">Description</Label>
                       <Input id="description" {...field} placeholder="My worst product yet"></Input>
-                      <FormMessage className="text-xs"></FormMessage>
                     </div>
                   )}
                 ></FormField>
@@ -235,7 +238,6 @@ const UploadForm = ({
                     <div className="grid gap-2">
                       <Label htmlFor="price">Price ($)</Label>
                       <Input id="price" type="number" {...field} placeholder="67.67"></Input>
-                      <FormMessage className="text-xs"></FormMessage>
                     </div>
                   )}
                 ></FormField>
@@ -246,7 +248,6 @@ const UploadForm = ({
                     <div className="grid gap-2">
                       <Label htmlFor="discount">Discount (%)</Label>
                       <Input id="discount" type="number" {...field}></Input>
-                      <FormMessage className="text-xs"></FormMessage>
                     </div>
                   )}
                 ></FormField>
@@ -257,7 +258,6 @@ const UploadForm = ({
                     <div className="grid gap-2">
                       <Label htmlFor="copies">Copies</Label>
                       <Input id="copies" type="number" {...field}></Input>
-                      <FormMessage className="text-xs"></FormMessage>
                     </div>
                   )}
                 ></FormField>

@@ -36,7 +36,7 @@ const ProductCardNew = ({ product, onDashboard }: { product: Product; onDashboar
   return (
     <>
       <Card className="flex flex-col h-full overflow-hidden group hover:shadow-lg transition-shadow">
-        <div className="relative aspect-square overflow-hidden bg-muted">
+        <div className="relative aspect-square overflow-hidden bg-muted flex items-center justify-center">
           {isVideo ? (
             <div>
               <Image
