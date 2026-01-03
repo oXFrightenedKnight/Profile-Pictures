@@ -55,8 +55,8 @@ const Profile = () => {
   return (
     <>
       <div className="flex w-full h-screen flex-col pt-6 mt-26 md:mt-16">
-        <div className="md:min-h-[40%] border-b">
-          <div className="flex h-[70%] w-full justify-center items-center gap-6 flex-col md:flex-row">
+        <div className="md:min-h-[300px] border-b">
+          <div className="flex h-[70%] md:min-h-[210px] w-full justify-center items-center gap-6 flex-col md:flex-row">
             <div className="p-6 flex flex-col gap-3 justify-between items-center w-full sm:min-w-[280px] md:min-w-[320px] md:max-w-[320px] max-w-sm h-full bg-neutral-200 rounded-xl relative">
               {avatarUrl && (
                 <Image
@@ -89,7 +89,7 @@ const Profile = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {allProducts.length !== 0
                 ? allProducts.map((product) => (
-                    <ProductCardNew key={product.id} product={product} />
+                    <ProductCardNew key={product.id} product={product} onDashboard={false} />
                   ))
                 : null}
             </div>

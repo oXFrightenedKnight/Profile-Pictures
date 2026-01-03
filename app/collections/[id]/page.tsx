@@ -32,7 +32,9 @@ const communityProducts = () => {
       <main className="container mx-auto px-4 py-12 mt-[9vh]">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.length !== 0
-            ? products.map((product) => <ProductCardNew key={product.id} product={product} />)
+            ? products.map((product) => (
+                <ProductCardNew key={product.id} product={product} onDashboard={false} />
+              ))
             : null}
         </div>
       </main>

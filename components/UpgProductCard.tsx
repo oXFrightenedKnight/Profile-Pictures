@@ -16,32 +16,69 @@ import Checkout from "./checkout";
 import { Product, trpc } from "@/app/_trpc/client";
 import Link from "next/link";
 import { useUser } from "@clerk/clerk-react";
+import { Play, Trash2 } from "lucide-react";
 
-const ProductCardNew = ({ product }: { product: Product }) => {
+const ProductCardNew = ({ product, onDashboard }: { product: Product; onDashboard: boolean }) => {
   const { user } = useUser();
   const userId = user?.id;
+
   const [showCheckout, setShowCheckout] = useState(false);
-  const { data } = trpc.getImgById.useQuery(
-    { id: product.imageId },
-    { select: (data) => data[0]?.url ?? null }
-  );
+  const [open, setOpen] = useState<boolean>(false);
+
+  const utils = trpc.useUtils();
+
+  const { data } = trpc.getMediaById.useQuery({ id: product.mediaId }) ?? "";
   const getUsernameById = trpc.getUsernameById.useQuery({ id: product.authorId });
-  const imgUrl = data;
+  const deleteFile = trpc.deleteProduct.useMutation();
+  const mediaUrl = data?.[0]?.url;
+  const isVideo = data?.[0]?.type === "video";
   const price = (product.priceCents / 100).toFixed(2);
   return (
     <>
       <Card className="flex flex-col h-full overflow-hidden group hover:shadow-lg transition-shadow">
         <div className="relative aspect-square overflow-hidden bg-muted">
-          <Image
-            src={imgUrl || "/placeholder.svg"}
-            alt={product.name}
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
-          />
+          {isVideo ? (
+            <div>
+              <Image
+                className="w-28 h-28 absolute z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                onClick={() => setOpen(true)}
+                src={"/play.svg"}
+                alt="play button"
+                width={28}
+                height={28}
+              ></Image>
+              <video
+                src={mediaUrl || "/placeholder.svg"}
+                preload="metadata"
+                className="object-cover group-hover:scale-105 transition-transform duration-300"
+                onClick={() => setOpen(true)}
+              ></video>
+            </div>
+          ) : (
+            <Image
+              src={mediaUrl || "/placeholder.svg"}
+              alt={product.name}
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+          )}
+
           <div>
             {product.newRelease && (
               <div className="absolute top-2 left-2 rounded-xl p-1 bg-red-500 text-white text-sm font-bold">
                 NEW RELEASE
+              </div>
+            )}
+            {onDashboard && (
+              <div
+                className="absolute top-2 left-2 rounded-xl p-1 bg-red-400 text-white hover:bg-red-500 transition z-50 p-4"
+                onClick={async () => {
+                  console.log("CLiked");
+                  deleteFile.mutate({ id: product.id });
+                  await utils.readUserProducts.invalidate();
+                }}
+              >
+                <Trash2 className="w-6 h-6"></Trash2>
               </div>
             )}
 
@@ -74,10 +111,13 @@ const ProductCardNew = ({ product }: { product: Product }) => {
                 <p className="text-2xl font-bold line-through text-neutral-700">${price}</p>
                 <div className="flex gap-2">
                   <p className="text-3xl font-bold">
-                    ${(Number(price) * (1 - Number(product.discount))).toFixed(2)}{" "}
+                    $
+                    {(
+                      Math.round(Number(price) * 100 * (1 - Number(product.discount))) / 100
+                    ).toFixed(2)}{" "}
                   </p>
                   <div className="rounded-xl p-1 bg-red-500 text-xl text-white flex justify-center items-center font-bold">
-                    {Number(product.discount) * 100}% OFF
+                    {Math.round(Number(product.discount) * 100)}% OFF
                   </div>
                 </div>
               </div>
@@ -85,18 +125,36 @@ const ProductCardNew = ({ product }: { product: Product }) => {
           </div>
         </CardContent>
         <CardFooter>
-          <Button className="w-full" size="lg" onClick={() => setShowCheckout(true)}>
-            Buy Now
-          </Button>
+          {isVideo ? (
+            <Button className="w-full" size="lg" onClick={() => setOpen(true)}>
+              Watch Preview
+            </Button>
+          ) : (
+            <Button className="w-full" size="lg" onClick={() => setShowCheckout(true)}>
+              Buy Now
+            </Button>
+          )}
         </CardFooter>
       </Card>
 
+      {/* Dialogs */}
       <Dialog open={showCheckout} onOpenChange={setShowCheckout}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Complete Your Purchase</DialogTitle>
           </DialogHeader>
           <Checkout productId={product.id} />
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className="w-[90vw] h-[min(90vh,768px)] max-w-[90vw] max-h-[75vh] overflow-hidden flex flex-col">
+          <DialogHeader>
+            <DialogTitle>Video Preview</DialogTitle>
+          </DialogHeader>
+          <div className="flex-1 flex items-center justify-center">
+            <video src={mediaUrl} controls className="w-full h-full rounded-lg bg-black" autoPlay />
+          </div>
         </DialogContent>
       </Dialog>
     </>

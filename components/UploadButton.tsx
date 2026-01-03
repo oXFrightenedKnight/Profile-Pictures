@@ -13,15 +13,18 @@ import { toast } from "sonner";
 import { trpc } from "@/app/_trpc/client";
 import { useRouter } from "next/navigation";
 
-type UploadedImage = {
+export type UploadedMedia = {
   id: string;
   url: string;
-};
+  size: number;
+} | null;
 
 const UploadDropzone = ({
   onUploaded,
+  isVideo,
 }: {
-  onUploaded: (img: { id: string; url: string }) => void;
+  onUploaded: (onUploaded: UploadedMedia) => void;
+  isVideo: boolean;
 }) => {
   const router = useRouter();
 
@@ -30,12 +33,13 @@ const UploadDropzone = ({
   const [uploadError, setUploadError] = useState<boolean>(false);
 
   const { startUpload } = useUploadThing("imageUploader");
+  const { startUpload: startVideoUpload } = useUploadThing("videoUploader");
 
-  const { mutate: startPolling } = trpc.getImage.useMutation({
-    onSuccess: (img) => {
-      if (!img) return;
+  const { mutate: startPolling } = trpc.getMedia.useMutation({
+    onSuccess: (media) => {
+      if (!media) return;
       console.log("IMAGE UPLOAD");
-      onUploaded({ id: img.id, url: img.url });
+      onUploaded({ id: media.id, url: media.url, size: media.size });
     },
     retry: true,
     retryDelay: 500,
@@ -65,7 +69,9 @@ const UploadDropzone = ({
         const progressInterval = startSimulatedProgress();
 
         // handle file uploading
-        const res = await startUpload(acceptedFile);
+        const res = isVideo
+          ? await startVideoUpload(acceptedFile)
+          : await startUpload(acceptedFile);
 
         if (!res) {
           setUploadError(true);
@@ -111,7 +117,9 @@ const UploadDropzone = ({
                 <p className="mb-2 text-sm text-zinc-700">
                   <span className="font-bold">Click to upload</span> or drag and drop
                 </p>
-                <p className="text-xs text-zinc-500">Image (up to 4MB)</p>
+                <p className="text-xs text-zinc-500">
+                  {isVideo ? <div>Video (up to 256MB)</div> : <div>Image (up to 4MB)</div>}
+                </p>
               </div>
 
               {acceptedFiles && acceptedFiles[0] ? (
@@ -154,8 +162,10 @@ const UploadDropzone = ({
 
 const UploadButton = ({
   onUploaded,
+  isVideo,
 }: {
-  onUploaded: React.Dispatch<React.SetStateAction<UploadedImage | null>>;
+  onUploaded: React.Dispatch<React.SetStateAction<UploadedMedia | null>>;
+  isVideo: boolean;
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -167,7 +177,7 @@ const UploadButton = ({
       }}
     >
       <DialogTrigger onClick={() => setIsOpen(true)} asChild>
-        <Button>Upload Image</Button>
+        <Button>{isVideo ? <span>Upload Video</span> : <span>Upload Image</span>}</Button>
       </DialogTrigger>
 
       <DialogContent>
@@ -177,6 +187,7 @@ const UploadButton = ({
               setIsOpen(false);
               onUploaded(img);
             }}
+            isVideo={isVideo}
           ></UploadDropzone>
         </DialogTitle>
       </DialogContent>

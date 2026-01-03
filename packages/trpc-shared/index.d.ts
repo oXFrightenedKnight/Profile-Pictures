@@ -37,6 +37,7 @@ export declare const appRouter: import("@trpc/server").TRPCBuiltRouter<
           name: string;
           email: string;
           description: string | null;
+          storageTaken: number;
         };
       };
       meta: object;
@@ -58,8 +59,9 @@ export declare const appRouter: import("@trpc/server").TRPCBuiltRouter<
           newRelease: boolean;
           copies: number;
           collectionId: string;
-          imageId: string;
+          mediaId: string;
           createdAt: Date;
+          expiresAt: Date | null;
         }[];
         nextCursor: Date | undefined;
       };
@@ -100,8 +102,9 @@ export declare const appRouter: import("@trpc/server").TRPCBuiltRouter<
           newRelease: boolean;
           copies: number;
           collectionId: string;
-          imageId: string;
+          mediaId: string;
           createdAt: Date;
+          expiresAt: Date | null;
         }[];
         nextCursor: Date | undefined;
       };
@@ -116,17 +119,19 @@ export declare const appRouter: import("@trpc/server").TRPCBuiltRouter<
           name: string;
           email: string;
           description: string | null;
+          storageTaken: number;
         }[];
         avatarUrl: string;
       };
       meta: object;
     }>;
-    getImage: import("@trpc/server").TRPCMutationProcedure<{
+    getMedia: import("@trpc/server").TRPCMutationProcedure<{
       input: {
         key: string;
       };
       output: {
         id: string;
+        type: "video" | "image";
         key: string;
         url: string;
         name: string;
@@ -136,7 +141,7 @@ export declare const appRouter: import("@trpc/server").TRPCBuiltRouter<
       };
       meta: object;
     }>;
-    deleteImage: import("@trpc/server").TRPCMutationProcedure<{
+    deleteMedia: import("@trpc/server").TRPCMutationProcedure<{
       input: {
         id?: string | null | undefined;
       };
@@ -152,7 +157,7 @@ export declare const appRouter: import("@trpc/server").TRPCBuiltRouter<
         priceInCents: number;
         discount: number;
         copies: number;
-        imageId: string;
+        mediaId: string;
       };
       output: {
         id: string;
@@ -164,17 +169,20 @@ export declare const appRouter: import("@trpc/server").TRPCBuiltRouter<
         newRelease: boolean;
         copies: number;
         collectionId: string;
-        imageId: string;
+        mediaId: string;
         createdAt: Date;
+        expiresAt: Date | null;
       };
       meta: object;
     }>;
-    getImgById: import("@trpc/server").TRPCQueryProcedure<{
+    getMediaById: import("@trpc/server").TRPCQueryProcedure<{
       input: {
         id: string;
       };
       output: {
         url: string;
+        type: "video" | "image";
+        size: number;
       }[];
       meta: object;
     }>;
@@ -196,6 +204,18 @@ export declare const appRouter: import("@trpc/server").TRPCBuiltRouter<
         description: string | null;
         authorId: string | null;
       }[];
+      meta: object;
+    }>;
+    deleteProduct: import("@trpc/server").TRPCMutationProcedure<{
+      input: {
+        id: string;
+      };
+      output:
+        | number
+        | {
+            success: boolean;
+          }
+        | undefined;
       meta: object;
     }>;
   }>
