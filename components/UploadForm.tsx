@@ -146,7 +146,7 @@ const UploadForm = ({
           setDialogOpen(isOpen);
         }}
       >
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-[425px] z-250">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <DialogHeader className="mb-4">
